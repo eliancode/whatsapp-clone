@@ -16,11 +16,13 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const user = yield prisma.user.create({
             data: {
-                name: "eliancode",
                 email: "eliancode@gmail.com",
+                name: "eliancode",
             },
         });
         console.log(user);
+        const allUsers = yield prisma.user.findMany();
+        console.log(allUsers);
     });
 }
 exports.main = main;
