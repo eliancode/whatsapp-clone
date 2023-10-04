@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { Component, FC, useEffect, useState } from "react";
+import "./App.css";
+import axios from "axios";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  let data: string = "";
+  const url: string = "http://localhost:3055";
+  axios
+    .get(url)
+    .then(function (response) {
+      data = response.data;
+      console.log(response);
+    })
+    .catch((error) => {
+      data = "SORRY. Cannot get data";
+      console.log("Error found:" + error);
+    });
+  axios.post(url, {
+    data: "PLS SEE THE POST",
+  });
+  return <p>{data}</p>;
 }
 
 export default App;

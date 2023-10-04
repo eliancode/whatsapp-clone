@@ -1,30 +1,15 @@
 import express from "express";
-//import { main } from "./prisma-client";
-//import { PrismaClient } from "@prisma/client";
-import { createServer } from "node:http";
-import { Server } from "socket.io";
 const app = express();
-const server = createServer(app);
-const io = new Server(server);
-//const prisma = new PrismaClient();
-const PORT = 3000;
+const SERVER_PORT = 3055;
 app.get("/", (req, res) => {
-    //res.send("<h1>Hello world</h1>");
-    res.sendFile(new URL("./index.html", import.meta.url).pathname);
+    res.send("LETS GOOOOOOOOO!!!!!!!!!!!!!!!!");
+    console.log("Suceces sending data");
 });
-io.on("connection", (socket) => {
-    console.log("a user connected");
+app.get("/", (req, res) => {
+    let data = res.get("/");
+    console.log(data);
 });
-app.listen(PORT, () => {
-    return console.log(`Server is up on http://localhost:${PORT}`);
+app.listen(SERVER_PORT, () => {
+    console.log("Server up on Port: " + SERVER_PORT);
 });
-//main()
-//  .then(async () => {
-//    await prisma.$disconnect();
-//  })
-//  .catch(async (e) => {
-//    console.error(e);
-//   await prisma.$disconnect();
-//    process.exit(1);
-//  });
 //# sourceMappingURL=app.js.map
