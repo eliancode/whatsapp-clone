@@ -2,10 +2,10 @@
   "name": "whatsapp-clone-backend",
   "version": "1.0.0",
   "description": "The Whatsapp-clone backend",
-  "main": "dist/app.js",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx tsc && nodemon dist/app.js"
+    "start": "tsc-watch --project . --outDir ./dist --onSuccess \"nodemon ./dist/app.js\""
   },
   "type": "module",
   "author": "Frederik Estel",
@@ -20,9 +20,11 @@
   "dependencies": {
     "@prisma/client": "^5.3.1",
     "@types/cors": "^2.8.14",
+    "axios": "^1.6.0",
     "cors": "^2.8.5",
     "express": "^4.15.2",
     "nodemon": "^3.0.1",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.7.2",
+    "tsc-watch": "^6.0.4"
   }
 }
