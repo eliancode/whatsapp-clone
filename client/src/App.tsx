@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
 function App() {
-  let data: string = "";
-  const mainUrl: string = "http://localhost:3055";
+  let message: Message;
+  const mainUrl: string = "http://192.168.124.49:3000";
   const messageUrl: string = "http://localhost:3055/messages";
   interface Message {
     from: any;
     to: string;
     message: any;
-    id: any;
   }
 
   function getData() {
     axios
       .get(mainUrl)
-      .then(function (res) {
-        data = res.data;
-        console.log(data);
+      .then((res) => {
+        let messageElement =
+          document.getElementById("messageElement")?.innerHTML;
+        messageElement = res.data;
       })
       .catch((reason) => {
         console.log(
@@ -47,12 +47,15 @@ function App() {
   };
   const handleSubmit = () => {
     let result: string = messageValue;
+    let messageField: HTMLInputElement | null = document.getElementById(
+      "messageField"
+    ) as HTMLInputElement;
     postData({
       from: prompt("Gib deinen Benutzernamen ein: "),
       to: "all",
       message: result,
-      id: null,
     });
+    messageField.value = "";
   };
   <>
     <label>
@@ -60,14 +63,29 @@ function App() {
       <input name="data" value="Geben sie Die Nachricht hier ein: " />
     </label>
   </>;
+  //message = getData();
+
+  // let dataMessage = message.message;
+  // console.log(dataMessage);
+
   return (
-    <div id="collection">
-      <label htmlFor="messageField">Enter your message here: </label>
-      <input type="text" id="messageField" onChange={handleInputChange} />
-      <button type="button" onClick={handleSubmit}>
-        Send
-      </button>
-    </div>
+    <>
+      <div id="collection">
+        <input
+          type="text"
+          id="messageField"
+          placeholder="Nachricht eingeben"
+          onChange={handleInputChange}
+        />
+        <button type="button" onClick={handleSubmit} id="sendButton">
+          Send
+        </button>
+      </div>
+      <h1 id="message_in_JSON">
+        Message in JSON. SOLLTE sich ändern - tut es nd
+      </h1>
+      getData();
+    </>
   );
 }
 

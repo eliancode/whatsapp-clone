@@ -9,3 +9,8 @@ body {
   margin-top: 650px;
   color: red;
 }
+
+#message_in_JSON {
+  margin-bottom: 200px;
+  margin-left: 100px;
+}
