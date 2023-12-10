@@ -9,17 +9,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-export function main() {
+function addToDB(from, to, message) {
     return __awaiter(this, void 0, void 0, function* () {
-        const user = yield prisma.user.create({
+        const user = yield prisma.message.create({
             data: {
-                email: "eliancode@gmail.com",
-                name: "eliancode",
+                from: from,
+                to: to,
+                message: message,
             },
         });
         console.log(user);
-        const allUsers = yield prisma.user.findMany();
-        console.log(allUsers);
+        const messages = yield prisma.message.findMany();
+        console.log(messages);
+    });
+}
+export function runAddToBD(from, to, message) {
+    addToDB(from, to, message)
+        .then(() => __awaiter(this, void 0, void 0, function* () {
+        yield prisma.$disconnect();
+    }))
+        .catch((e) => __awaiter(this, void 0, void 0, function* () {
+        console.error(e);
+        yield prisma.$disconnect();
+        process.exit(1);
+    }));
+}
+function returnMessages() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const users = yield prisma.message.findMany();
+        return users;
+    });
+}
+export function runReturnMessages() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const users = yield prisma.message
+            .findMany()
+            .then(() => __awaiter(this, void 0, void 0, function* () {
+            yield prisma.$disconnect();
+        }))
+            .catch((e) => __awaiter(this, void 0, void 0, function* () {
+            console.error(e);
+            yield prisma.$disconnect();
+            process.exit(1);
+        }));
+        return users;
     });
 }
 //# sourceMappingURL=prisma-client.js.map

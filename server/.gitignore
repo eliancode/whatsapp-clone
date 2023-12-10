@@ -1,5 +1,8 @@
-/node_modules
 # Keep environment variables out of version control
+node_modules/*
 .env
-/dist
+dist/*
 .DS_Store
+prisma/migrations/*
+# prisma/dev.db-journal
+# prisma/dev.db

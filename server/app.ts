@@ -1,10 +1,9 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import axios from "axios";
 const app = express();
 const SERVER_PORT: number = 3055;
-import fs from "fs";
 import bodyParser from "body-parser";
+import { runAddToBD, runReturnMessages } from "./prisma-client.js";
 app.use(cors());
 app.use(express.json());
 app.use(
@@ -26,22 +25,16 @@ app.listen(SERVER_PORT, () => {
     );
   }
 });
-interface Message {
-  from: string;
-  to: string;
-  message: string;
-  id: number;
-}
-
-let message: Message = {
-  to: "Frederik",
-  from: "Raphi",
-  message: "Hi",
-  id: 0,
-};
+// interface Message {
+//   from: string;
+//   to: string;
+//   message: string;
+//   id: number;
+// }
 app.get("/", (req: Request, res: Response, next) => {
   try {
-    res.send(message);
+    console.log("Frontend asked for messages from backend.");
+    res.send(runReturnMessages());
   } catch (error) {
     console.log(
       "Something went wrong while posting a data to frontend. Error: " + error
@@ -49,26 +42,13 @@ app.get("/", (req: Request, res: Response, next) => {
   }
 });
 
-function callBack() {
-  console.log("Saved log in a SuccesLog.txt");
-}
-
-app.get("/messages", async (req: Request, res: Response) => {
-  //ACHTUNG: WENN JEMAND AUF /messages mit Get-Request zugreift passiert das: app.get('messages')...
-  try {
-    //console.log(res.render("data", { data: req.body.name }));
-    console.log(...req.body);
-  } catch (error) {
-    console.log(
-      "Something went wrong while pulling data from frontend. Error: " + error
-    );
-  }
-});
+// function callBack() {
+//   console.log("Saved log in a SuccesLog.txt");
+// }
 app.post("/messages", async (req: Request, res: Response, next) => {
-  //ACHTUNG: WENN JEMAND AUF /messages mit Post-Request zugreift passiert das: app.post('messages')...
   try {
     let data = req.body;
-    console.log(data);
+    runAddToBD(data.from, data.to, data.message);
   } catch {
     console.log("Something went wrong");
   }
