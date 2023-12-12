@@ -1,10 +1,13 @@
-# Backend part:
-backend/node_modules
+# Server part:
+server/node_modules
 # Keep environment variables out of version control
-backend/.env
-backend/dist
-
-
+server/.env
+server/dist/*
+server/dist/
+server/.DS_Store
+server/src/prisma/migrations/*
+server/src/prisma/dev.db-journal
+server/src/prisma/dev.db
 
 #Frontend part:
 frontend/node_modules
