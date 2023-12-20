@@ -4,8 +4,8 @@ import axios from "axios";
 import useUpdateMessage from "./helpers/addMessages";
 function App() {
   let message: Message;
-  const mainUrl: string = "http://192.168.178.21:3055";
-  const messageUrl: string = "http://192.168.178.21:3000/:3055/messages";
+  const mainUrl: string = "http://192.168.178.21:3055"; //change to current ipv4 address
+  const messageUrl: string = "http://192.168.178.21:3055/messages"; //change to current ipv4 address;
   interface Message {
     from: any;
     to: string;
