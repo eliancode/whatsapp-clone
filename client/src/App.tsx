@@ -1,30 +1,15 @@
 import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
+import useUpdateMessage from "./helpers/addMessages";
 function App() {
   let message: Message;
-  const mainUrl: string = "http://192.168.124.49:3000";
-  const messageUrl: string = "http://localhost:3055/messages";
+  const mainUrl: string = "http://192.168.178.21:3055";
+  const messageUrl: string = "http://192.168.178.21:3000/:3055/messages";
   interface Message {
     from: any;
     to: string;
     message: any;
-  }
-
-  function getData() {
-    axios
-      .get(mainUrl)
-      .then((res) => {
-        let messageElement =
-          document.getElementById("messageElement")?.innerHTML;
-        messageElement = res.data;
-      })
-      .catch((reason) => {
-        console.log(
-          "Something went wrong while getting data from backend. Reason: " +
-            reason
-        );
-      });
   }
 
   function postData(message: Message) {
@@ -63,11 +48,11 @@ function App() {
       <input name="data" value="Geben sie Die Nachricht hier ein: " />
     </label>
   </>;
+  const updateData = useUpdateMessage();
   //message = getData();
 
   // let dataMessage = message.message;
   // console.log(dataMessage);
-
   return (
     <>
       <div id="collection">
@@ -84,7 +69,6 @@ function App() {
       <h1 id="message_in_JSON">
         Message in JSON. SOLLTE sich ändern - tut es nd
       </h1>
-      getData();
     </>
   );
 }
