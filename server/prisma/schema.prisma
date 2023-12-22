@@ -17,3 +17,9 @@ model message{
   message      String
   sendedAt    DateTime @default(now()) 
 }
+
+model user{
+  id        Int    @id @default(autoincrement())
+  username  String @unique
+  password  String
+}

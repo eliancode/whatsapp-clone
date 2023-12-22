@@ -4,16 +4,19 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 export const returnMessages = async (req: Request, res: Response) => {
   try {
-    const users = await prisma.message.findMany();
-    return res.json({
-      success: true,
-      payload: users,
-      message: "Operation Sucessfully",
-    });
+    const messages = await prisma.message.findMany();
+    return res
+      .json({
+        success: true,
+        payload: messages,
+        message: "Operation Sucessfully",
+      })
+      .sendStatus(200)
+      .send("OK");
   } catch (error) {
     console.log(
       "Something went wrong while posting a data to frontend. Error: " + error
     );
-    return res.sendStatus(400);
+    return res.sendStatus(400).send("Bad Request");
   }
 };
