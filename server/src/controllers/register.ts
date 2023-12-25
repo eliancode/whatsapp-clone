@@ -1,11 +1,13 @@
 import express, { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { checkIfExistByUsername } from "../helpers/checkForExistenceByUsername.js";
+import { textToHash } from "../helpers/textToHash.js";
 
 const prisma = new PrismaClient();
 export const register = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;
+    const passwordHashed: string = textToHash(password);
     if (!username || !password) {
       return res.status(400).send("Bad Request");
     }
@@ -15,7 +17,7 @@ export const register = async (req: Request, res: Response) => {
     const user = await prisma.user.create({
       data: {
         username: username,
-        password: password,
+        password: passwordHashed,
       },
     });
     return res.status(200).json(user);
