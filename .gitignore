@@ -3,9 +3,9 @@ server/node_modules/**
 # Keep environment variables out of version control
 server/dist/**
 server/.DS_Store
-server/src/prisma/migrations/**
-server/src/prisma/dev.db-journal
-server/src/prisma/dev.db
+server/prisma/migrations/**
+server/prisma/dev.db-journal
+server/prisma/dev.db
 #Frontend part:
 frontend/node_modules
 frontend/.pnp
