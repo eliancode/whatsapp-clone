@@ -11,12 +11,12 @@ export const returnMessages = async (req: Request, res: Response) => {
         payload: messages,
         message: "Operation Sucessfully",
       })
-      .sendStatus(200)
+      .status(200)
       .send("OK");
   } catch (error) {
     console.log(
       "Something went wrong while posting a data to frontend. Error: " + error
     );
-    return res.sendStatus(400).send("Bad Request");
+    return res.status(400).send("Bad Request");
   }
 };

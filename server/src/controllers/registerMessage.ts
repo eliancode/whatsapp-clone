@@ -13,12 +13,12 @@ export const addToDb = async (req: Request, res: Response) => {
       },
     });
     if (!from || !to || !message) {
-      return res.sendStatus(400).send("Bad Request");
+      return res.status(400).send("Bad Request");
     }
     console.log(createdUser);
-    res.sendStatus(200).send("OK");
+    res.status(200).send("OK");
   } catch (error) {
     console.log("Error while adding data to the database: " + error);
-    return res.sendStatus(400).send("Bad Request");
+    return res.status(400).send("Bad Request");
   }
 };
