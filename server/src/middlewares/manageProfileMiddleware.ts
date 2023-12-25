@@ -1,20 +1,22 @@
 import express, { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-export const verifyToken = async (
+import { getUserBySessionToken } from "../helpers/getUserBySessionToken";
+
+export const manageProfile = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const token = req.cookies["WHATSAPPCLONE-AUTH"];
-  req.body.token = token;
+
   if (!token || token === "") {
     return res.redirect(403, "/auth/login");
   }
+  req.body.user = getUserBySessionToken(token);
   try {
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.body.decoded = decoded;
+    const decoded = jwt.decode(token);
   } catch (err) {
-    return res.redirect(401, "/auth/login");
+    return res.status(500).json({ error: "Failed to authenticate token" });
   }
   return next();
 };

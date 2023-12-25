@@ -7,6 +7,6 @@
     "sourceMap": true,
     "outDir": "dist"
   },
-  "lib": ["ES2022"],
+  "lib": ["es6"],
   "include": ["src/**/*"]
 }
