@@ -5,14 +5,11 @@ const prisma = new PrismaClient();
 export const returnMessages = async (req: Request, res: Response) => {
   try {
     const messages = await prisma.message.findMany();
-    return res
-      .json({
-        success: true,
-        payload: messages,
-        message: "Operation Sucessfully",
-      })
-      .status(200)
-      .send("OK");
+    return res.status(200).json({
+      success: true,
+      payload: messages,
+      message: "Operation Sucessfully",
+    });
   } catch (error) {
     console.log(
       "Something went wrong while posting a data to frontend. Error: " + error
