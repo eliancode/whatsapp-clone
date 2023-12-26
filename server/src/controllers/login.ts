@@ -30,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
       },
     });
     return res
-      .cookie("WHATSAPPCLONE-AUTH", token, { maxAge: 604800000 })
+      .cookie("WHATSAPPCLONE-AUTH", token, { maxAge: 604800000, path: "/" })
       .status(200)
       .json({
         success: true,
@@ -39,6 +39,6 @@ export const login = async (req: Request, res: Response) => {
       });
   } catch (error) {
     console.log("Something went wrong while logging in. Error: " + error);
-    return res.sendStatus(400).send("Bad Request");
+    return res.status(500).send("Internal Server Error");
   }
 };
